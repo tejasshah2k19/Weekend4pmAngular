@@ -1,0 +1,15 @@
+#wrapper {
+    display: flex;
+    height: 100vh;
+  }
+  
+  #sidebar-wrapper {
+    width: 250px;
+    flex-shrink: 0;
+  }
+  
+  #page-content-wrapper {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
