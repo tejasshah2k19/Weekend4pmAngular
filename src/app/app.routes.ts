@@ -6,6 +6,7 @@ import { NewSubjectComponent } from './new-subject/new-subject.component';
 import { NewTopicComponent } from './new-topic/new-topic.component';
 import { NewExamComponent } from './new-exam/new-exam.component';
 import { NewQuestionComponent } from './new-question/new-question.component';
+import { ListSubjectComponent } from './list-subject/list-subject.component';
 
 export const routes: Routes = [
     { path: "signup", component: SignupComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
     { path: "newtopic", component: NewTopicComponent },
     { path: "newexam", component: NewExamComponent },
     { path: "newquestion", component: NewQuestionComponent },
+    {path:"listsubjects",component:ListSubjectComponent}
 
 
 
