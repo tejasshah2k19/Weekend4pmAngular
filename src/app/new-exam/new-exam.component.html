@@ -1,17 +1,47 @@
-<div class="d-flex" id="wrapper">
+ <h2>Enter Exam Details:</h2>
+<form [formGroup]="examForm" (ngSubmit)="saveExam()">
+  <label for="title">Enter Title:</label>
+  <input type="text" formControlName="title" ><br><br>
 
-    <app-admin-sidebar></app-admin-sidebar>
+  <label for="description">Enter Description:</label>
+  <input type="text" formControlName="description" ><br><br>
+
+  <label for="faculty">Select faculty :</label>
+  <select  formControlName="facultyId">
+    <option *ngFor="let s of faculty" value="{{s._id}}">{{s.firstName}}</option>
+  </select><br><br>
+
+  <label for="subject">Select Subject:</label>
+  <select  formControlName="subjectId" (change)="setTopic(examForm.value.subjectId)">
+    <option *ngFor="let s of subject" value="{{s._id}}"  >{{s.subjectName}}</option>
+  </select><br><br>
+
+  <label for="topic">Select Topic:</label>
+  <select  formControlName="topicId">
+    <option *ngFor="let s of topicsFilter" value="{{s._id}}">{{s.topicName}}</option>
+  </select><br><br>
+
   
-    <!-- Page Content -->
-    <div id="page-content-wrapper" class="w-100">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-3">
-        <span class="navbar-brand mb-0 h1">Welcome</span>
-      </nav>
-  
-      <div class="container-fluid mt-4">
-        <h1 class="mt-4">Exam Page</h1>
-        <p>This is your main content area.</p>
-      </div>
-    </div>
-  </div>
-  
+
+  <label for="marksPerQuestion">Enter marks Per Question:</label>
+  <input type="text" formControlName="marksPerQuestion" ><br><br>
+
+  <label for="totalNumberOfQuestions">Enter total Number Of Questions:</label>
+  <input type="text" formControlName="totalNumberOfQuestions" ><br><br>
+
+  <label for="active">Active:</label>
+  <select  formControlName="active">
+    <option value="true">true</option>
+    <option value="false">false</option>
+  </select><br><br>  
+
+  <label for="negative">Negative Marking:</label>
+  <select  formControlName="negative">
+    <option value="true">true</option>
+    <option value="false">false</option>
+  </select><br><br> 
+
+
+  <input type="submit" value="save Exam">
+       
+</form>

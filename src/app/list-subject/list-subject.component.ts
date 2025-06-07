@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { SubjectService } from '../service/subject.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-subject',
@@ -14,7 +16,7 @@ export class ListSubjectComponent {
 
   data:Array<any> = []
 
-  constructor(private subjectService: SubjectService) {
+  constructor(private subjectService: SubjectService,private toastrService:ToastrService) {
     this.getAllSubjects();
   }
 
@@ -25,6 +27,19 @@ export class ListSubjectComponent {
     }, err => {
       console.log(err);
     })
+  }
+
+  deleteSubject(id:any){
+ 
+    //api 
+    this.subjectService.deleteBySubjectId(id).subscribe(resp=>{
+      this.toastrService.success("Subject Delete Successfully","",{timeOut:3000})
+      this.getAllSubjects();
+    },err=>{
+
+      this.toastrService.error("Error in  Deleting subject"+err.error.message,"",{timeOut:3000})
+    })
+
   }
 
 }

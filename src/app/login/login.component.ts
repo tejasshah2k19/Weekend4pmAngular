@@ -3,56 +3,60 @@ import { FormControl, FormControlName, FormGroup, ReactiveFormsModule, Validator
 import { Route, Router, RouterLink } from '@angular/router';
 import { DataStoreService } from '../data-store.service';
 import { ToastrService } from 'ngx-toastr';
+import { SessionService } from '../service/session.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, HttpClientModule],
+  providers: [SessionService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-
-  name = "royal"//value ->data type->String 
-  name2: String = "royal";//data  type String 
+  loginText = "Login"
 
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
-    password: new FormControl('')
+    password: new FormControl('', [Validators.required])
   })
 
-  constructor(private dataStoreService: DataStoreService,private toastService:ToastrService,private router:Router) {
-    this.name2 = "ahmedabad";
+  constructor(private dataStoreService: DataStoreService, private toastService: ToastrService, private router: Router, private sessionService: SessionService) {
   }
 
   login() {
-    console.log(this.loginForm.valid);
-    console.log(this.loginForm.value);
 
-    let found = false;
-    for (let i = 0; i < this.dataStoreService.users.length; i++) {
-      if (this.dataStoreService.users[i].email == this.loginForm.value.email
-        &&
-        this.dataStoreService.users[i].password == this.loginForm.value.password
-      ) {
-          found  = true;
-          break;
+
+    if (!this.loginForm.valid) {
+      this.toastService.error("Please Fill All the form Data", "", { timeOut: 3000 })
+      return;
+    }
+
+    this.loginText = "Authenticating...."
+
+    this.sessionService.authenticate(this.loginForm.value).subscribe(resp => {
+      console.log(resp);
+
+      this.loginText = "Login"
+      if (resp.user.role == 'admin') {
+        this.toastService.success("Login success", "", { timeOut: 3000 })
+      } else if (resp.user.role == 'faculty') {
+        this.toastService.success("Login success", "", { timeOut: 3000 })
+        this.router.navigateByUrl("/home")
+      } else {
+        this.toastService.error("Unauthorize Request Please Contact Admin", "", { timeOut: 3000 })
+
       }
-    }
-
-    if(found == true){
-      //success
-      this.toastService.success("Login success","",{timeOut:3000})
-      this.router.navigateByUrl("home")
+    }, err => {
       
-    }else{
+      this.loginText = "Login"
+      this.toastService.error("Invalid Credentials", "", { timeOut: 3000 })
+    })
 
-      this.toastService.error("Invalid Credentials","",{timeOut:3000})
-    }
 
-
-  }
+  }//login 
 
 
 }

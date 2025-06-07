@@ -8,10 +8,27 @@
         <span class="navbar-brand mb-0 h1">Welcome</span>
       </nav>
   
+      
+
+
       <div class="container-fluid mt-4">
-        <h1 class="mt-4">Topic Page</h1>
-        <p>This is your main content area.</p>
+        <h1 class="mt-4">New Topic</h1>
+
+          <form [formGroup]="topicForm" (ngSubmit)="saveTopic()">
+
+              SubjectName : <select formControlName="subject">
+                              <option *ngFor="let s of allSubjects" value="{{s._id}}">{{s.subjectName}}</option>
+                            </select>
+<br><br>
+              TopicName : <input type="text" formControlName="topicName"/>
+
+              <br><br>
+              <input type="submit" value="Save Subject"/>
+          </form>
+        
       </div>
+
+
     </div>
   </div>
   

@@ -6,7 +6,7 @@ import { DataStoreService } from '../data-store.service';
 
 @Component({
   selector: 'app-signup',
-  imports: [RouterLink,ReactiveFormsModule,NgIf],
+  imports: [RouterLink,ReactiveFormsModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })

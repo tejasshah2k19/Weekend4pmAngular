@@ -6,7 +6,7 @@ import { CalcComponent } from "./calc/calc.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SignupComponent, LoginComponent, CalcComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

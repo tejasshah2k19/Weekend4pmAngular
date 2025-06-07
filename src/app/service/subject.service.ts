@@ -21,4 +21,8 @@ export class SubjectService {
   getSubjectById(subjectId: any): Observable<any> {
     return this.httpClient.get("https://exam2k24-2.onrender.com/api/subjects/" + subjectId)
   }
+
+  deleteBySubjectId(subjectId:any):Observable<any>{
+    return this.httpClient.delete("https://exam2k24-2.onrender.com/api/subjects/"+subjectId)
+  }
 }
